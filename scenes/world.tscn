@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dedvq1bqt8pww" path="res://scenes/slime.tscn" id="5_71j4m"]
 [ext_resource type="PackedScene" uid="uid://bkfftvpcp030a" path="res://scenes/heart.tscn" id="7_i7141"]
 [ext_resource type="Texture2D" uid="uid://cuhb0woi0k6mr" path="res://imgs/text.png" id="8_4mrxx"]
-[ext_resource type="Script" uid="uid://bhtnbow7h74pc" path="res://scripts/exit_button.gd" id="9_w7kh3"]
+[ext_resource type="Script" uid="uid://d1gwi3ep5vsup" path="res://scripts/exit_button_2.gd" id="9_e3hyu"]
 [ext_resource type="Texture2D" uid="uid://qp1uo0b6kimb" path="res://imgs/exit_btn.png" id="10_e3hyu"]
 [ext_resource type="AudioStream" uid="uid://ct37pi27gkeae" path="res://sound_effects/Pokemon Ruby_Sapphire_Emerald- Littleroot Town - pokemonmusicmaster (youtube).mp3" id="11_e3hyu"]
 
@@ -173,7 +173,7 @@ offset_bottom = 76.0
 texture = ExtResource("8_4mrxx")
 expand_mode = 1
 
-[node name="exit_button" type="Button" parent="CanvasLayer"]
+[node name="exit_button2" type="Button" parent="CanvasLayer"]
 offset_left = 456.0
 offset_top = 390.0
 offset_right = 977.0
@@ -181,9 +181,9 @@ offset_bottom = 534.0
 scale = Vector2(0.462804, 0.674226)
 theme_override_font_sizes/font_size = 66
 flat = true
-script = ExtResource("9_w7kh3")
+script = ExtResource("9_e3hyu")
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/exit_button"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/exit_button2"]
 layout_mode = 0
 offset_left = -317.629
 offset_top = -576.958
@@ -198,4 +198,4 @@ stream = ExtResource("11_e3hyu")
 volume_db = -18.143
 autoplay = true
 
-[connection signal="pressed" from="CanvasLayer/exit_button" to="CanvasLayer/exit_button" method="_on_pressed"]
+[connection signal="pressed" from="CanvasLayer/exit_button2" to="CanvasLayer/exit_button2" method="_on_pressed"]
