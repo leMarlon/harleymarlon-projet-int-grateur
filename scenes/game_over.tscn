@@ -2,10 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://ce4ftv6ofceu2" path="res://imgs/background.png" id="1_racf3"]
 [ext_resource type="Script" uid="uid://dsquenbk2imxu" path="res://scripts/game_over.gd" id="1_xeevv"]
-[ext_resource type="Texture2D" uid="uid://dn2rhx8qreaeg" path="res://imgs/custom-terraria-logo.png" id="2_7m3ot"]
+[ext_resource type="Texture2D" uid="uid://cmyqmxpduiogu" path="res://imgs/game_title.png" id="2_racf3"]
 [ext_resource type="Texture2D" uid="uid://cans06mi7kcln" path="res://imgs/start_btn.png" id="4_v3hpu"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_irg28"]
+[sub_resource type="LabelSettings" id="LabelSettings_7m3ot"]
 font_size = 90
 
 [node name="Control" type="Control"]
@@ -18,6 +18,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
 offset_right = 1151.0
 offset_bottom = 648.0
 texture = ExtResource("1_racf3")
@@ -32,25 +33,26 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="."]
-offset_left = 229.0
-offset_top = 219.0
-offset_right = 913.0
-offset_bottom = 367.0
-label_settings = SubResource("LabelSettings_irg28")
+offset_left = 85.0
+offset_top = 122.0
+offset_right = 1038.0
+offset_bottom = 270.0
+label_settings = SubResource("LabelSettings_7m3ot")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Label"]
 layout_mode = 0
-offset_left = 20.0
-offset_top = 25.0
-offset_right = 537.0
-offset_bottom = 120.0
+offset_left = 57.0
+offset_top = 11.0
+offset_right = 740.0
+offset_bottom = 106.0
 scale = Vector2(1.21107, 1.46089)
-texture = ExtResource("2_7m3ot")
+texture = ExtResource("2_racf3")
 stretch_mode = 3
 
 [node name="Button" type="Button" parent="."]
+layout_mode = 0
 offset_left = 466.0
 offset_top = 401.0
 offset_right = 987.0

@@ -197,5 +197,6 @@ expand_mode = 2
 stream = ExtResource("11_e3hyu")
 volume_db = -18.143
 autoplay = true
+parameters/looping = true
 
 [connection signal="pressed" from="CanvasLayer/exit_button2" to="CanvasLayer/exit_button2" method="_on_pressed"]

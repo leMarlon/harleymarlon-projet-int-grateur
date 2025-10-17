@@ -35,25 +35,27 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="."]
-offset_left = 216.0
-offset_top = 126.0
-offset_right = 1260.0
-offset_bottom = 274.0
+layout_mode = 0
+offset_left = 85.0
+offset_top = 122.0
+offset_right = 1038.0
+offset_bottom = 270.0
 label_settings = SubResource("LabelSettings_rtw2f")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Label"]
 layout_mode = 0
-offset_left = -66.0
-offset_top = 5.0
-offset_right = 617.0
-offset_bottom = 100.0
+offset_left = 57.0
+offset_top = 11.0
+offset_right = 740.0
+offset_bottom = 106.0
 scale = Vector2(1.21107, 1.46089)
 texture = ExtResource("2_rtw2f")
 stretch_mode = 3
 
 [node name="play_button" type="Button" parent="."]
+layout_mode = 0
 offset_left = 456.0
 offset_top = 271.0
 offset_right = 977.0
@@ -74,6 +76,7 @@ texture = ExtResource("4_rtw2f")
 expand_mode = 2
 
 [node name="exit_button" type="Button" parent="."]
+layout_mode = 0
 offset_left = 456.0
 offset_top = 390.0
 offset_right = 977.0
@@ -97,5 +100,6 @@ expand_mode = 2
 stream = ExtResource("7_oa1go")
 volume_db = -0.275
 autoplay = true
+parameters/looping = true
 
 [connection signal="pressed" from="exit_button" to="exit_button" method="_on_pressed"]
