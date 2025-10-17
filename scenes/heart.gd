@@ -9,6 +9,9 @@ func _ready():
 func _basic_movement():
 	if is_idle:
 		$AnimatedSprite2D.play("idle")
+		
+		
+@onready var heartsound = $sound
 
 func _on_body_entered(body: Node):
 	if body is Player:
@@ -16,6 +19,7 @@ func _on_body_entered(body: Node):
 			print("Player already at max health. Heart not used.")
 			return
 		
+		heartsound.play()
 		body.health += 15
 		if body.health > 100:
 			body.health = 100

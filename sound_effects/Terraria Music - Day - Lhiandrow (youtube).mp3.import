@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dhk85gvybo1b0"
+path="res://.godot/imported/Terraria Music - Day - Lhiandrow (youtube).mp3-8364bb8eeeef8a9af87abf4fd0acb328.mp3str"
+
+[deps]
+
+source_file="res://sound_effects/Terraria Music - Day - Lhiandrow (youtube).mp3"
+dest_files=["res://.godot/imported/Terraria Music - Day - Lhiandrow (youtube).mp3-8364bb8eeeef8a9af87abf4fd0acb328.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

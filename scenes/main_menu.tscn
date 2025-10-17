@@ -1,11 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://bo3kenjpyicc7"]
+[gd_scene load_steps=9 format=3 uid="uid://bo3kenjpyicc7"]
 
 [ext_resource type="Script" uid="uid://dsquenbk2imxu" path="res://scripts/game_over.gd" id="1_l6cm7"]
 [ext_resource type="Texture2D" uid="uid://ce4ftv6ofceu2" path="res://imgs/background.png" id="1_wu84c"]
-[ext_resource type="Texture2D" uid="uid://dn2rhx8qreaeg" path="res://imgs/custom-terraria-logo.png" id="2_8ln24"]
+[ext_resource type="Texture2D" uid="uid://cmyqmxpduiogu" path="res://imgs/game_title.png" id="2_rtw2f"]
 [ext_resource type="Script" uid="uid://bhtnbow7h74pc" path="res://scripts/exit_button.gd" id="4_8ln24"]
 [ext_resource type="Texture2D" uid="uid://cans06mi7kcln" path="res://imgs/start_btn.png" id="4_rtw2f"]
 [ext_resource type="Texture2D" uid="uid://qp1uo0b6kimb" path="res://imgs/exit_btn.png" id="5_rtw2f"]
+[ext_resource type="AudioStream" uid="uid://dhk85gvybo1b0" path="res://sound_effects/Terraria Music - Day - Lhiandrow (youtube).mp3" id="7_oa1go"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_rtw2f"]
 font_size = 90
@@ -36,7 +37,7 @@ grow_vertical = 2
 [node name="Label" type="Label" parent="."]
 offset_left = 216.0
 offset_top = 126.0
-offset_right = 900.0
+offset_right = 1260.0
 offset_bottom = 274.0
 label_settings = SubResource("LabelSettings_rtw2f")
 horizontal_alignment = 1
@@ -44,12 +45,12 @@ vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="Label"]
 layout_mode = 0
-offset_left = 56.0
-offset_top = 8.0
-offset_right = 533.0
-offset_bottom = 103.0
+offset_left = -66.0
+offset_top = 5.0
+offset_right = 617.0
+offset_bottom = 100.0
 scale = Vector2(1.21107, 1.46089)
-texture = ExtResource("2_8ln24")
+texture = ExtResource("2_rtw2f")
 stretch_mode = 3
 
 [node name="play_button" type="Button" parent="."]
@@ -91,5 +92,10 @@ offset_bottom = 50.0001
 scale = Vector2(7.48, 2.88)
 texture = ExtResource("5_rtw2f")
 expand_mode = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_oa1go")
+volume_db = -0.275
+autoplay = true
 
 [connection signal="pressed" from="exit_button" to="exit_button" method="_on_pressed"]

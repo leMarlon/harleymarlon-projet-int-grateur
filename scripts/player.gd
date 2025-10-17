@@ -6,7 +6,7 @@ const speed = 140
 var current_dir = "none"
 @onready var deathsound = $death
 @onready var slashsound = $slash
-
+@onready var hurtsound = $hurt
 
 var ismoving = false
 var enemy_inattack_range = false
@@ -144,6 +144,7 @@ func enemy_attack():
 	if enemy_inattack_range and enemy_attack_cooldown == true:
 		health = health - 10
 		enemy_attack_cooldown = false
+		hurtsound.play()
 		$attack_cooldown.start()
 		print("The player has been hit, Player health : ", health)
 		
@@ -249,6 +250,10 @@ func die():
 	velocity = Vector2.ZERO
 	global.player_current_attack = false
 	attack_ip = false
+	
+	var world = get_tree().get_current_scene()
+	if world.has_node("AudioStreamPlayer"):
+		world.get_node("AudioStreamPlayer").stop()
 
 	print("Player has died.")
 
@@ -263,7 +268,7 @@ func die():
 		$AnimatedSprite2D.play("death")
 	
 	deathsound.play()
-	await get_tree().create_timer(2.0).timeout
+	await deathsound.finished
 	
 	get_tree().change_scene_to_file("res://scenes/game_over.tscn")
 	

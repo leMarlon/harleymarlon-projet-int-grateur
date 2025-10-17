@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://duxwfm83dmnvc"]
+[gd_scene load_steps=17 format=3 uid="uid://duxwfm83dmnvc"]
 
 [ext_resource type="Texture2D" uid="uid://bu23e3ykopirm" path="res://sprites/tilesets/plains.png" id="1_4wyf3"]
 [ext_resource type="Script" uid="uid://b88acq6j2r0rx" path="res://world.gd" id="1_qfnet"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cuhb0woi0k6mr" path="res://imgs/text.png" id="8_4mrxx"]
 [ext_resource type="Script" uid="uid://bhtnbow7h74pc" path="res://scripts/exit_button.gd" id="9_w7kh3"]
 [ext_resource type="Texture2D" uid="uid://qp1uo0b6kimb" path="res://imgs/exit_btn.png" id="10_e3hyu"]
+[ext_resource type="AudioStream" uid="uid://ct37pi27gkeae" path="res://sound_effects/Pokemon Ruby_Sapphire_Emerald- Littleroot Town - pokemonmusicmaster (youtube).mp3" id="11_e3hyu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qfnet"]
 texture = ExtResource("1_4wyf3")
@@ -191,5 +192,10 @@ offset_bottom = -561.958
 scale = Vector2(7.48, 2.88)
 texture = ExtResource("10_e3hyu")
 expand_mode = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_e3hyu")
+volume_db = -18.143
+autoplay = true
 
 [connection signal="pressed" from="CanvasLayer/exit_button" to="CanvasLayer/exit_button" method="_on_pressed"]
