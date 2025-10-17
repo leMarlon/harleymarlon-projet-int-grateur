@@ -33,15 +33,8 @@ func _physics_process(delta):
 		
 		
 func player_movement(delta):
-	if not player_alive:
-		return
-	
-	if attack_ip:
-		velocity = Vector2.ZERO
-		return
-		
-	if is_hit:
-		velocity = Vector2.ZERO
+	velocity = Vector2.ZERO
+	if attack_ip or is_hit or not player_alive:
 		return
 		
 	var was_moving = ismoving
@@ -163,6 +156,7 @@ func enemy_attack():
 
 		
 		$hurt_timer.start()
+		
 			
 
 		
@@ -237,8 +231,6 @@ func _on_regin_timer_timeout():
 		health = health + 20
 		if health > 100:
 			health = 100
-		if health == 0:
-			health = 0
 
 
 func die():
@@ -272,8 +264,5 @@ func die():
 	
 	get_tree().change_scene_to_file("res://scenes/game_over.tscn")
 	
-
-
 func _on_hurt_timer_timeout() -> void:
 	is_hit = false
-	play_anim(0)
