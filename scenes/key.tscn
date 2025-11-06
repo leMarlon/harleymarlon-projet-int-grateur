@@ -1,0 +1,79 @@
+[gd_scene load_steps=13 format=3 uid="uid://c8pswjlgo7mps"]
+
+[ext_resource type="Script" uid="uid://dyx3olmhu01qg" path="res://scripts/key.gd" id="1_b4qnb"]
+[ext_resource type="Texture2D" uid="uid://bifb7sxevgcma" path="res://sprites/characters/key_1.png" id="2_6t41w"]
+[ext_resource type="Texture2D" uid="uid://cgdfsic3nafco" path="res://sprites/characters/key_2.png" id="3_ljj5h"]
+[ext_resource type="Texture2D" uid="uid://c5l4hufmwrsgc" path="res://sprites/characters/key_3.png" id="4_upbuq"]
+[ext_resource type="Texture2D" uid="uid://c7mr0n20wuma8" path="res://sprites/characters/key_4.png" id="5_8cac7"]
+[ext_resource type="AudioStream" uid="uid://csbwgnp7vmfcu" path="res://sound_effects/player/heart.mp3" id="6_gq3hl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ku6d0"]
+atlas = ExtResource("2_6t41w")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1w6cg"]
+atlas = ExtResource("3_ljj5h")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fcqyd"]
+atlas = ExtResource("4_upbuq")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_midqh"]
+atlas = ExtResource("5_8cac7")
+region = Rect2(0, 0, 500, 500)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bu8ts"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ku6d0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1w6cg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fcqyd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_midqh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fcqyd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1w6cg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4oglw"]
+radius = 25.1794
+
+[node name="Key" type="StaticBody2D"]
+script = ExtResource("1_b4qnb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -3)
+scale = Vector2(0.12, 0.12)
+sprite_frames = SubResource("SpriteFrames_bu8ts")
+frame_progress = 0.574041
+offset = Vector2(0, 3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, -4)
+shape = SubResource("CircleShape2D_4oglw")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-2, -4)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_4oglw")
+
+[node name="sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_gq3hl")
+volume_db = 6.19
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
