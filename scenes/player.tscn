@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://curtwtkw8ymjl"]
+[gd_scene load_steps=65 format=3 uid="uid://curtwtkw8ymjl"]
 
 [ext_resource type="Script" uid="uid://cm7a6i6vwbti7" path="res://scripts/player.gd" id="1_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://b2rukkn0stupc" path="res://sprites/characters/player.png" id="2_qlg0r"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://c2k30svrfxlll" path="res://sprites/characters/player_sheet2.png" id="3_qlg0r"]
 [ext_resource type="AudioStream" uid="uid://dqhuh5qrpcqda" path="res://sound_effects/player/slash.mp3" id="4_qlg0r"]
 [ext_resource type="AudioStream" uid="uid://cusc7fo5mm8h8" path="res://sound_effects/player/hurt.mp3" id="4_tuyoq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tuyoq"]
+radius = 18.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
 atlas = ExtResource("2_qlg0r")
@@ -466,6 +469,12 @@ position = Vector2(-5, -1)
 collision_layer = 3
 script = ExtResource("1_y4r1p")
 
+[node name="detection_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+position = Vector2(5, -9)
+shape = SubResource("CircleShape2D_tuyoq")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(16, -1)
 scale = Vector2(1.4502, 1.4072)
@@ -481,15 +490,13 @@ shape = SubResource("CapsuleShape2D_tuyoq")
 [node name="player_hitbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox"]
-position = Vector2(6, -11)
+position = Vector2(5, -9)
 shape = SubResource("CircleShape2D_qlg0r")
 
 [node name="attack_cooldown" type="Timer" parent="."]
 
 [node name="deal_attack_timer" type="Timer" parent="."]
 wait_time = 0.445
-
-[node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="healthbar" type="ProgressBar" parent="."]
 modulate = Color(0.199178, 0.681111, 0.299278, 1)
@@ -518,6 +525,13 @@ volume_db = 11.873
 [node name="hurt_timer" type="Timer" parent="."]
 wait_time = 0.5
 
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="cliffside_camera2D" type="Camera2D" parent="."]
+position = Vector2(1, 0)
+
+[connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]
 [connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
 [connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]
 [connection signal="timeout" from="attack_cooldown" to="." method="_on_attack_cooldown_timeout"]

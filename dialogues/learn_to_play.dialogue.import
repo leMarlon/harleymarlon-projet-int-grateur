@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://bh2loh34yvl6f"
+path="res://.godot/imported/learn_to_play.dialogue-e3f9f429bb40292d2899724f7453cd6a.tres"
+
+[deps]
+
+source_file="res://dialogues/learn_to_play.dialogue"
+dest_files=["res://.godot/imported/learn_to_play.dialogue-e3f9f429bb40292d2899724f7453cd6a.tres"]
+
+[params]
+
+defaults=true

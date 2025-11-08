@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://sh2kdiuytn8g"]
+
+[ext_resource type="Script" uid="uid://k1u6yb8a1tt7" path="res://scripts/old_man.gd" id="1_5643s"]
+[ext_resource type="Texture2D" uid="uid://bsy46ivkbekdc" path="res://sprites/characters/old_man_sprite.png" id="2_5643s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0k7p5"]
+atlas = ExtResource("2_5643s")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5643s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0k7p5")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sacx8"]
+radius = 34.0588
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hdlgl"]
+radius = 14.0357
+
+[node name="old_man" type="CharacterBody2D"]
+script = ExtResource("1_5643s")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5643s")
+animation = &"idle"
+offset = Vector2(0, -6)
+
+[node name="detection_area" type="Area2D" parent="."]
+position = Vector2(1, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_sacx8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -4)
+shape = SubResource("CircleShape2D_hdlgl")
+
+[connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]

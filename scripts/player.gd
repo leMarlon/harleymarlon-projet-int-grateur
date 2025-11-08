@@ -8,6 +8,10 @@ var current_dir = "none"
 @onready var slashsound = $slash
 @onready var hurtsound = $hurt
 
+
+var oldman_in_range = false
+var learntoplay_inrange = false
+
 var ismoving = false
 var enemy_inattack_range = false
 var enemy_attack_cooldown = true
@@ -16,18 +20,45 @@ var player_alive = true
 var is_hit = false
 var attack_ip = false
 
+var dialogue_open = false
+
+
 
 func _ready():
 	$AnimatedSprite2D.play("down_idle")
-	$Camera2D.make_current()
+	if global.current_scene == "world":
+		$Camera2D.make_current()
+		$Camera2D.zoom = Vector2(3, 3)
+	elif global.current_scene == "cliff_side":
+		$cliffside_camera2D.make_current()
+		$cliffside_camera2D.zoom = Vector2(3,3)
+	
 	_set_camera_limits()
 	
 	
 func _physics_process(delta):
-	player_movement(delta)
+	if dialogue_open:
+		play_anim(0)              # keep facing-based idle
+		velocity = Vector2.ZERO
+		move_and_slide()
+	else:
+		player_movement(delta)
 	attack()
 	enemy_attack()
 	update_health()
+	if oldman_in_range == true:
+		if Input.is_action_just_pressed("use"):
+			var b = DialogueManager.show_example_dialogue_balloon(load("res://dialogues/main.dialogue"), "main")
+			dialogue_open = true
+			b.tree_exited.connect(_on_dialogue_closed) # clears when balloon closes
+
+	if learntoplay_inrange == true:
+		if Input.is_action_just_pressed("use"):
+			var b2 = DialogueManager.show_example_dialogue_balloon(load("res://dialogues/learn_to_play.dialogue"), "start")
+			dialogue_open = true
+			b2.tree_exited.connect(_on_dialogue_closed)
+	
+		
 	if health <= 0 and player_alive:
 		die()
 		
@@ -212,6 +243,12 @@ func _set_camera_limits():
 		$Camera2D.limit_top = int(used_rect.position.y * cell_size.y)
 		$Camera2D.limit_right = int((used_rect.position.x + used_rect.size.x) * cell_size.x)
 		$Camera2D.limit_bottom = int((used_rect.position.y + used_rect.size.y) * cell_size.y)
+		
+		$cliffside_camera2D.limit_left = int(used_rect.position.x * cell_size.x)
+		$cliffside_camera2D.limit_top = int(used_rect.position.y * cell_size.y)
+		$cliffside_camera2D.limit_right = int((used_rect.position.x + used_rect.size.x) * cell_size.x)
+		$cliffside_camera2D.limit_bottom = int((used_rect.position.y + used_rect.size.y) * cell_size.y)
+	
 
 
 
@@ -266,3 +303,30 @@ func die():
 	
 func _on_hurt_timer_timeout() -> void:
 	is_hit = false
+
+
+func _on_detection_area_body_entered(body):
+	if body.has_method("old_man"):
+		oldman_in_range = true
+	if body.has_method("learntoplay"):
+		learntoplay_inrange = true
+
+
+func _on_detection_area_body_exited(body):
+	if body.has_method("old_man"):
+		oldman_in_range = false
+	
+	if body.has_method("learntoplay"):
+		learntoplay_inrange = false
+		
+		
+func current_camera():
+	if global.current_scene == "world":
+		$Camera2D.enabled = true
+		$cliffside_camera2D.enabled = false
+	elif global.current_scene == "clff_side":
+		$Camera2D.enabled = false
+		$cliffside_camera2D.enabled = true
+		
+func _on_dialogue_closed() -> void:
+	dialogue_open = false

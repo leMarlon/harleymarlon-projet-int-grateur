@@ -1,0 +1,8 @@
+~ start
+Marlon: Greetings ! Do you wish to learn how to play this game ?
+- Yes
+	Marlon: Use the arrows to move around. Press E to attack. Press F to interact with objects and people. Press Esc to pause the game.
+	Marlon: Speak to the old man to begin your quest ! => END
+- No
+	Marlon: Good luck ! Speak to the old man !
+=> END
