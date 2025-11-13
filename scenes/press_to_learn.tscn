@@ -3,9 +3,6 @@
 [ext_resource type="Script" uid="uid://cl22tpyqw56qb" path="res://scripts/press_to_learn.gd" id="1_3ck4q"]
 [ext_resource type="Texture2D" uid="uid://yaeve88kmfg1" path="res://sprites/objects/press_me.png" id="2_qieql"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_unha4"]
-size = Vector2(96.5, 115)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_nts6f"]
 atlas = ExtResource("2_qieql")
 region = Rect2(0, 0, 891, 180)
@@ -28,16 +25,28 @@ animations = [{
 "speed": 3.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_unha4"]
+size = Vector2(96.5, 136.5)
+
 [node name="PressToLearn" type="Area2D"]
 script = ExtResource("1_3ck4q")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-41, 70.5)
-shape = SubResource("RectangleShape2D_unha4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(2, -3)
 scale = Vector2(0.316667, 0.316667)
 sprite_frames = SubResource("SpriteFrames_bcsiq")
 animation = &"idle"
-frame_progress = 0.746568
+frame_progress = 0.67888
+
+[node name="detection_area" type="Area2D" parent="."]
+position = Vector2(1, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+position = Vector2(-42, 70)
+shape = SubResource("RectangleShape2D_unha4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-42, 66.75)
+shape = SubResource("RectangleShape2D_unha4")
