@@ -46,17 +46,16 @@ func _physics_process(delta):
 	attack()
 	enemy_attack()
 	update_health()
-	if oldman_in_range == true and dialogue_open == false:
+	if dialogue_open == false:
 		if Input.is_action_just_pressed("use"):
-			var b = DialogueManager.show_example_dialogue_balloon(load("res://dialogues/main.dialogue"), "main")
-			dialogue_open = true
-			b.tree_exited.connect(_on_dialogue_closed)
-
-	if learntoplay_inrange == true and dialogue_open == false:
-		if Input.is_action_just_pressed("use"):
-			var b2 = DialogueManager.show_example_dialogue_balloon(load("res://dialogues/learn_to_play.dialogue"), "start")
-			dialogue_open = true
-			b2.tree_exited.connect(_on_dialogue_closed)
+			if learntoplay_inrange == true:
+				var b2 = DialogueManager.show_example_dialogue_balloon(load("res://dialogues/learn_to_play.dialogue"), "start")
+				dialogue_open = true
+				b2.tree_exited.connect(_on_dialogue_closed)
+			if oldman_in_range == true:
+				var b = DialogueManager.show_example_dialogue_balloon(load("res://dialogues/main.dialogue"), "main")
+				dialogue_open = true
+				b.tree_exited.connect(_on_dialogue_closed)
 	
 		
 	if health <= 0 and player_alive:
@@ -308,16 +307,13 @@ func _on_hurt_timer_timeout() -> void:
 func _on_detection_area_body_entered(body):
 	if body.has_method("old_man"):
 		oldman_in_range = true
-	if body.has_method("learntoplay"):
+	elif body.has_method("learn"):
 		learntoplay_inrange = true
-		print("player can learn to play")
-
 
 func _on_detection_area_body_exited(body):
 	if body.has_method("old_man"):
 		oldman_in_range = false
-	
-	if body.has_method("learntoplay"):
+	if body.has_method("learn"):
 		learntoplay_inrange = false
 		
 		

@@ -1,4 +1,4 @@
-extends Area2D
+extends CharacterBody2D
 
 var is_idle = true
  
@@ -10,5 +10,5 @@ func _basic_movement():
 		$AnimatedSprite2D.play("idle")
 		
 		
-func learntoplay():
+func learn():
 	pass
