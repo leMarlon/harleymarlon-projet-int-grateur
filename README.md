@@ -1,4 +1,4 @@
-# TP3 en Intéractivité Ludique - Prototype de mini jeu RPG
+# Projet Intégrateur en Intéractivité Ludique - Prototype de mini jeu RPG
 
 Ce répertoire contient tout les éléments, données, fichiers qui sont liés au projet GODOT en question, dans lequel sera crée un prototype de mini jeu RPG.
 
@@ -23,3 +23,10 @@ Ce répertoire contient tout les éléments, données, fichiers qui sont liés a
 - Systeme de dialogue fonctionnel et complet
 - 2 niveaux (Premier et boss fight(non complete))
 - Systeme de quest avec le vieux monsieur
+
+----------------------------
+
+- 3 niveaux (1er niveau, apprentissage, petits monstres, petite quête. 2ème niveau, boss intermédiaire, 3eme niveau et final, boss difficile)
+- Système de player power up(magical sword slashes)
+- Nouvelles animations pour les power-ups
+- UIs et aesthetic de jeu plus beau/élevé
