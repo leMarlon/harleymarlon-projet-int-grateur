@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://dd21xqjxph0wy"
+path="res://.godot/imported/legend_sword.dialogue-789f29e78e4a8784df60779a01b8b88d.tres"
+
+[deps]
+
+source_file="res://dialogues/legend_sword.dialogue"
+dest_files=["res://.godot/imported/legend_sword.dialogue-789f29e78e4a8784df60779a01b8b88d.tres"]
+
+[params]
+
+defaults=true

@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://b88acq6j2r0rx" path="res://scripts/world.gd" id="1_qfnet"]
 [ext_resource type="Texture2D" uid="uid://tvxgawacokb1" path="res://sprites/tilesets/grass.png" id="2_k0juu"]
 [ext_resource type="Texture2D" uid="uid://ckoayaltl60vp" path="res://sprites/objects/objects.png" id="3_71j4m"]
-[ext_resource type="Script" uid="uid://bglmvm66ikhb1" path="res://scripts/chest.gd" id="3_jhx03"]
+[ext_resource type="Script" uid="uid://b4is0qqov4tri" path="res://scripts/chest.gd" id="3_jhx03"]
 [ext_resource type="Texture2D" uid="uid://cmk3h546qtest" path="res://sprites/objects/chest_01.png" id="3_q5onr"]
 [ext_resource type="PackedScene" uid="uid://curtwtkw8ymjl" path="res://scenes/player.tscn" id="4_k0juu"]
 [ext_resource type="PackedScene" uid="uid://dedvq1bqt8pww" path="res://scenes/slime.tscn" id="5_71j4m"]
@@ -152,7 +152,7 @@ scale = Vector2(0.3, 0.3)
 position = Vector2(78, 114)
 
 [node name="key1" parent="." instance=ExtResource("9_jhx03")]
-position = Vector2(1086, 311)
+position = Vector2(1018, 312)
 scale = Vector2(0.5, 0.5)
 
 [node name="chest" type="StaticBody2D" parent="."]
@@ -235,6 +235,13 @@ parameters/looping = true
 position = Vector2(778, -55)
 shape = SubResource("RectangleShape2D_o8fc1")
 
+[node name="boss_transition" type="Area2D" parent="."]
+position = Vector2(347, 367)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="boss_transition"]
+position = Vector2(778, -55)
+shape = SubResource("RectangleShape2D_o8fc1")
+
 [node name="collisions" type="StaticBody2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="collisions"]
@@ -265,3 +272,5 @@ polygon = PackedVector2Array(-6.66666, -7.5, 6.66666, -7.5, 6.66666, 5.83333, -6
 [connection signal="body_exited" from="chest/chest zone" to="key1" method="_on_chest_zone_body_exited"]
 [connection signal="body_entered" from="cliffside_transition" to="." method="_on_cliffside_transition_body_entered"]
 [connection signal="body_exited" from="cliffside_transition" to="." method="_on_cliffside_transition_body_exited"]
+[connection signal="body_entered" from="boss_transition" to="." method="_on_boss_transition_body_entered"]
+[connection signal="body_exited" from="boss_transition" to="." method="_on_boss_transition_body_exited"]

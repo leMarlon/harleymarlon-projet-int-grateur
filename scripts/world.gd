@@ -8,13 +8,20 @@ var paused = false
 
 func _ready():
 	pause_menu.hide()
+
 	if global.game_first_loadin == true:
 		global.game_outof_cliffside = false
-		$player.position.x = global.player_start_posx
-		$player.position.y = global.player_start_posy
+		global.game_outof_boss = false
+		$player.position = Vector2(global.player_start_posx, global.player_start_posy)
+
 	elif global.game_outof_cliffside == true:
-		$player.position.x = global.player_exit_cliffside_posx
-		$player.position.y = global.player_exit_cliffside_posy
+		global.game_outof_cliffside = false
+		$player.position = Vector2(global.player_exit_cliffside_posx, global.player_exit_cliffside_posy)
+
+	elif global.game_outof_boss == true:
+		global.game_outof_boss = false
+		$player.position = Vector2(global.player_exit_bossmap_posx, global.player_exit_bossmap_posy)
+
 	
 func _process(delta):
 	change_scene()
@@ -34,7 +41,10 @@ func pauseMenu():
 func _on_cliffside_transition_body_entered(body):
 	if body.has_method("player"):
 		global.transition_scene = true
-		print("The player came back to the world")
+		global.transitionto_cliff = true
+		global.transitionto_bossmap = false
+
+		
 		
 
 
@@ -42,10 +52,41 @@ func _on_cliffside_transition_body_exited(body):
 	if body.has_method("player"):
 		global.transition_scene = false
 		
+		
+		
+func _on_boss_transition_body_entered(body):
+	if body is Player:
+		print("ENTER boss transition")
+		global.transition_scene = true
+		global.transitionto_bossmap = true
+		global.transitionto_cliff = false
+
+
+
+
+func _on_boss_transition_body_exited(body):
+	if body is Player:
+		print("EXIT boss transition")
+		global.transition_scene = false
+
+		
+
+		
 func change_scene():
 	if global.transition_scene and global.current_scene == "world":
-		global.finish_changescenes()
-		global.game_first_loadin = false
-		
-		get_tree().change_scene_to_file("res://scenes/cliff_side.tscn")
+		var next_scene := ""
+
+		if global.transitionto_cliff:
+			print("hehehehe")
+			next_scene = "res://scenes/cliff_side.tscn"
+		elif global.transitionto_bossmap:
+			print("HEHEHEH")
+			next_scene = "res://scenes/boss_map.tscn"
+
+		if next_scene != "":
+			global.game_first_loadin = false
+			global.finish_changescenes()
+			get_tree().change_scene_to_file(next_scene)
+
+
 		

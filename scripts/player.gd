@@ -163,6 +163,24 @@ func player():
 	pass
 
 
+func _on_legend_hitbox_body_entered(body: Node2D) -> void:
+	if global.legend_sword:
+		if body.has_method("enemy"):
+			enemy_inattack_range = true
+		if body.has_method("boss"):
+			enemy_inattack_range = true
+		
+
+
+func _on_legend_hitbox_body_exited(body: Node2D) -> void:
+	if global.legend_sword:
+		if body.has_method("enemy"):
+			enemy_inattack_range = false
+		if body.has_method("boss"):
+			enemy_inattack_range = false
+
+
+
 
 
 
@@ -170,11 +188,15 @@ func player():
 func _on_player_hitbox_body_entered(body: Node2D) -> void:
 	if body.has_method("enemy"):
 		enemy_inattack_range = true
+	if body.has_method("boss"):
+		enemy_inattack_range = true
 	
 		
 
 func _on_player_hitbox_body_exited(body: Node2D) -> void:
 	if body.has_method("enemy"):
+		enemy_inattack_range = false
+	if body.has_method("boss"):
 		enemy_inattack_range = false
 		
 func enemy_attack():
@@ -223,23 +245,45 @@ func attack():
 		global.player_current_attack = true
 		attack_ip = true
 		if dir == "right":
-			$AnimatedSprite2D.flip_h = false
-			$AnimatedSprite2D.play("side_slash")
-			slashsound.play()
-			$deal_attack_timer.start()
+			if global.legend_sword:
+				$AnimatedSprite2D.flip_h = false
+				$AnimatedSprite2D.play("side_slash_lgd")
+				slashsound.play()
+			else:
+				$deal_attack_timer.start()
+				$AnimatedSprite2D.flip_h = false
+				$AnimatedSprite2D.play("side_slash")
+				slashsound.play()
+				$deal_attack_timer.start()
 		if dir == "left":
-			$AnimatedSprite2D.flip_h = true
-			$AnimatedSprite2D.play("side_slash")
-			slashsound.play()
-			$deal_attack_timer.start()
+			if global.legend_sword:
+				$AnimatedSprite2D.flip_h = true
+				$AnimatedSprite2D.play("side_slash_lgd")
+				slashsound.play()
+				$deal_attack_timer.start()
+			else:
+				$AnimatedSprite2D.flip_h = true
+				$AnimatedSprite2D.play("side_slash")
+				slashsound.play()
+				$deal_attack_timer.start()
 		if dir == "down":
-			$AnimatedSprite2D.play("downslash")
-			slashsound.play()
-			$deal_attack_timer.start()
+			if global.legend_sword:
+				$AnimatedSprite2D.play("downslash_lgd")
+				slashsound.play()
+				$deal_attack_timer.start()
+			else:
+				$AnimatedSprite2D.play("downslash")
+				slashsound.play()
+				$deal_attack_timer.start()
 		if dir == "up":
-			$AnimatedSprite2D.play("upslash")
-			slashsound.play()
-			$deal_attack_timer.start()
+			if global.legend_sword:
+				$AnimatedSprite2D.play("upslash_lgd")
+				slashsound.play()
+				$deal_attack_timer.start()
+			else:
+				$AnimatedSprite2D.play("upslash")
+				slashsound.play()
+				$deal_attack_timer.start()
 
 
 func _on_deal_attack_timer_timeout() -> void:
@@ -361,6 +405,9 @@ func current_camera():
 	elif global.current_scene == "clff_side":
 		$Camera2D.enabled = false
 		$cliffside_camera2D.enabled = true
+	elif global.current_scene == "boss_map":
+		$Camera2D.enabled = false
+		$bossmap_camera.enabled = true
 		
 func _on_dialogue_closed() -> void:
 	dialogue_open = false
@@ -383,3 +430,7 @@ func boulder_break():
 
 func _on_pickaxe_timer_timeout():
 	$pickaxe_text.visible = false
+
+
+
+		

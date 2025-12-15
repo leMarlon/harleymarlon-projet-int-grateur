@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://juk8ss428k76"]
+[gd_scene load_steps=18 format=3 uid="uid://juk8ss428k76"]
 
 [ext_resource type="Texture2D" uid="uid://bu23e3ykopirm" path="res://sprites/tilesets/plains.png" id="1_e10jm"]
 [ext_resource type="Script" uid="uid://c52auq0smdtvt" path="res://scripts/cliff_side.gd" id="1_ocn37"]
@@ -6,9 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://ckoayaltl60vp" path="res://sprites/objects/objects.png" id="3_v3mbj"]
 [ext_resource type="PackedScene" uid="uid://curtwtkw8ymjl" path="res://scenes/player.tscn" id="4_jcley"]
 [ext_resource type="PackedScene" uid="uid://bri8jesltvvgn" path="res://scenes/pause.tscn" id="6_0riok"]
-[ext_resource type="PackedScene" uid="uid://bkfftvpcp030a" path="res://scenes/heart.tscn" id="7_0riok"]
+[ext_resource type="Texture2D" uid="uid://cmk3h546qtest" path="res://sprites/objects/chest_01.png" id="7_0riok"]
+[ext_resource type="Script" uid="uid://b4is0qqov4tri" path="res://scripts/chest.gd" id="7_ygqrx"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ocn37"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0riok"]
 texture = ExtResource("1_e10jm")
 2:1/0 = 0
 1:0/0 = 0
@@ -71,11 +72,11 @@ texture = ExtResource("1_e10jm")
 3:7/0 = 0
 3:7/0/z_index = 2
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0riok"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ygqrx"]
 texture = ExtResource("2_jcley")
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ygqrx"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_71q3n"]
 texture = ExtResource("3_v3mbj")
 0:5/size_in_atlas = Vector2i(3, 4)
 0:5/0 = 0
@@ -111,12 +112,42 @@ texture = ExtResource("3_v3mbj")
 
 [sub_resource type="TileSet" id="TileSet_71q3n"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_ocn37")
-sources/1 = SubResource("TileSetAtlasSource_0riok")
-sources/2 = SubResource("TileSetAtlasSource_ygqrx")
+sources/0 = SubResource("TileSetAtlasSource_0riok")
+sources/1 = SubResource("TileSetAtlasSource_ygqrx")
+sources/2 = SubResource("TileSetAtlasSource_71q3n")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ygqrx"]
 size = Vector2(300, 157)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_71q3n"]
+size = Vector2(16.6667, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o8fc1"]
+atlas = ExtResource("7_0riok")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xo05s"]
+atlas = ExtResource("7_0riok")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_axhr3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o8fc1")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xo05s")
+}],
+"loop": true,
+"name": &"opened",
+"speed": 5.0
+}]
 
 [node name="cliff_side" type="Node2D"]
 script = ExtResource("1_ocn37")
@@ -153,57 +184,20 @@ shape = SubResource("RectangleShape2D_ygqrx")
 
 [node name="Control" parent="CanvasLayer" instance=ExtResource("6_0riok")]
 
-[node name="Heart" parent="." instance=ExtResource("7_0riok")]
-position = Vector2(264, 284)
-scale = Vector2(0.35, 0.35)
+[node name="chest" type="StaticBody2D" parent="."]
+position = Vector2(575, 271)
+scale = Vector2(1.2, 1.2)
+script = ExtResource("7_ygqrx")
 
-[node name="Heart2" parent="." instance=ExtResource("7_0riok")]
-position = Vector2(251, 400)
-scale = Vector2(0.35, 0.35)
+[node name="chest zone" type="Area2D" parent="chest"]
 
-[node name="Heart3" parent="." instance=ExtResource("7_0riok")]
-position = Vector2(254, 130)
-scale = Vector2(0.35, 0.35)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chest/chest zone"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_71q3n")
 
-[node name="Heart4" parent="." instance=ExtResource("7_0riok")]
-position = Vector2(377, 73)
-scale = Vector2(0.35, 0.35)
-
-[node name="Heart5" parent="." instance=ExtResource("7_0riok")]
-position = Vector2(484, 60)
-scale = Vector2(0.35, 0.35)
-
-[node name="Heart6" parent="." instance=ExtResource("7_0riok")]
-position = Vector2(664, 65)
-scale = Vector2(0.35, 0.35)
-
-[node name="Heart7" parent="." instance=ExtResource("7_0riok")]
-position = Vector2(789, 118)
-scale = Vector2(0.35, 0.35)
-
-[node name="Heart8" parent="." instance=ExtResource("7_0riok")]
-position = Vector2(857, 174)
-scale = Vector2(0.35, 0.35)
-
-[node name="Heart9" parent="." instance=ExtResource("7_0riok")]
-position = Vector2(889, 251)
-scale = Vector2(0.35, 0.35)
-
-[node name="Heart10" parent="." instance=ExtResource("7_0riok")]
-position = Vector2(862, 339)
-scale = Vector2(0.35, 0.35)
-
-[node name="Heart11" parent="." instance=ExtResource("7_0riok")]
-position = Vector2(771, 398)
-scale = Vector2(0.35, 0.35)
-
-[node name="Heart12" parent="." instance=ExtResource("7_0riok")]
-position = Vector2(720, 469)
-scale = Vector2(0.35, 0.35)
-
-[node name="Heart13" parent="." instance=ExtResource("7_0riok")]
-position = Vector2(219, 214)
-scale = Vector2(0.35, 0.35)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="chest"]
+sprite_frames = SubResource("SpriteFrames_axhr3")
+animation = &"closed"
 
 [connection signal="body_entered" from="cliffside_exit" to="." method="_on_cliffside_exit_body_entered"]
 [connection signal="body_exited" from="cliffside_exit" to="." method="_on_cliffside_exit_body_exited"]
