@@ -37,7 +37,10 @@ func _on_exit_body_exited(body: Node2D) -> void:
 		
 func change_scene():
 	if global.transition_scene and global.current_scene == "boss_map":
-		global.transitionto_world = true
-		global.finish_changescenes()
+		global.transition_scene = false
+		global.transitionto_world = false
+
 		global.game_outof_boss = true
+		global.finish_changescenes("world")
+
 		get_tree().change_scene_to_file("res://scenes/world.tscn")

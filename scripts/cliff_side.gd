@@ -33,7 +33,10 @@ func _on_cliffside_exit_body_exited(body):
 		
 func change_scene():
 	if global.transition_scene and global.current_scene == "cliff_side":
-		global.transitionto_world = true
-		global.finish_changescenes()
+		global.transition_scene = false
+		global.transitionto_world = false
+
 		global.game_outof_cliffside = true
+		global.finish_changescenes("world")
+
 		get_tree().change_scene_to_file("res://scenes/world.tscn")

@@ -13,7 +13,7 @@ var current_scene = "world"
 var transition_scene = false
 
 var player_exit_cliffside_posx = 771.0
-var player_exit_cliffside_posy = 48.0
+var player_exit_cliffside_posy = 126.0
 
 var player_start_posx = 89.0
 var player_start_posy = 112.0
@@ -33,15 +33,10 @@ var game_first_loadin = true
 var game_outof_cliffside = false
 var game_outof_boss = false
 
-func finish_changescenes():
+func finish_changescenes(new_scene: String):
 	transition_scene = false
 
-	if current_scene == "world" and transitionto_cliff:
-		current_scene = "cliff_side"
-	elif current_scene == "world" and transitionto_bossmap:
-		current_scene = "boss_map"
-	elif (current_scene == "boss_map" or current_scene == "cliff_side") and transitionto_world:
-		current_scene = "world"
+	current_scene = new_scene
 
 	transitionto_cliff = false
 	transitionto_bossmap = false

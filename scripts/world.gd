@@ -73,20 +73,30 @@ func _on_boss_transition_body_exited(body):
 
 		
 func change_scene():
-	if global.transition_scene and global.current_scene == "world":
-		var next_scene := ""
+	if not global.transition_scene:
+		return
 
-		if global.transitionto_cliff:
-			print("hehehehe")
-			next_scene = "res://scenes/cliff_side.tscn"
-		elif global.transitionto_bossmap:
-			print("HEHEHEH")
-			next_scene = "res://scenes/boss_map.tscn"
+	if global.current_scene != "world":
+		return
 
-		if next_scene != "":
-			global.game_first_loadin = false
-			global.finish_changescenes()
-			get_tree().change_scene_to_file(next_scene)
+	var next_scene := ""
+	var next_scene_name := ""
+
+	if global.transitionto_cliff:
+		next_scene = "res://scenes/cliff_side.tscn"
+		next_scene_name = "cliff_side"
+	elif global.transitionto_bossmap:
+		next_scene = "res://scenes/boss_map.tscn"
+		next_scene_name = "boss_map"
+
+	if next_scene != "":
+		global.transition_scene = false
+		global.game_first_loadin = false
+		global.finish_changescenes(next_scene_name)
+
+		get_tree().change_scene_to_file(next_scene)
+
+
 
 
 		

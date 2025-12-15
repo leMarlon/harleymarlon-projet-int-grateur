@@ -218,37 +218,37 @@ func enemy_attack():
 	if not player_alive:
 		return
 
-	if enemy_inattack_range and enemy_attack_cooldown == true:
-		health = health - 10
-		enemy_attack_cooldown = false
-		hurtsound.play()
-		$attack_cooldown.start()
-		print("The player has been hit, Player health : ", health)
-	elif boss_inattack_range and enemy_attack_cooldown == true:
-		
-		health = health - 20
-		enemy_attack_cooldown = false
-		hurtsound.play()
-		$attack_cooldown.start()
-		print("The player has been hit, Player health : ", health)
-		
-		var dir = current_dir
-		is_hit = true
-		if dir == "right":
-			$AnimatedSprite2D.flip_h = false
-			$AnimatedSprite2D.play("hurt_side")
-		elif dir == "left":
-			$AnimatedSprite2D.flip_h = true
-			$AnimatedSprite2D.play("hurt_side")
-		elif dir == "up":
-			$AnimatedSprite2D.play("hurt_up")
-		elif dir == "down":
-			$AnimatedSprite2D.play("hurt_down")
+	if enemy_attack_cooldown == false:
+		return
 
-		
-		$hurt_timer.start()
-		
-			
+	if enemy_inattack_range:
+		take_damage(10)
+	elif boss_inattack_range:
+		take_damage(20)
+
+
+func take_damage(damage):
+	is_hit = true
+
+	var dir = current_dir
+	if dir == "right":
+		$AnimatedSprite2D.flip_h = false
+		$AnimatedSprite2D.play("hurt_side")
+	elif dir == "left":
+		$AnimatedSprite2D.flip_h = true
+		$AnimatedSprite2D.play("hurt_side")
+	elif dir == "up":
+		$AnimatedSprite2D.play("hurt_up")
+	elif dir == "down":
+		$AnimatedSprite2D.play("hurt_down")
+
+	health -= damage
+	enemy_attack_cooldown = false
+	hurtsound.play()
+	$attack_cooldown.start()
+	$hurt_timer.start()
+
+	print("The player has been hit, Player health :", health)
 
 		
 
