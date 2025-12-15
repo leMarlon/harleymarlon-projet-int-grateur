@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://curtwtkw8ymjl"]
+[gd_scene load_steps=75 format=3 uid="uid://curtwtkw8ymjl"]
 
 [ext_resource type="Script" uid="uid://cm7a6i6vwbti7" path="res://scripts/player.gd" id="1_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://b2rukkn0stupc" path="res://sprites/characters/player.png" id="2_qlg0r"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://cusc7fo5mm8h8" path="res://sound_effects/player/hurt.mp3" id="4_tuyoq"]
 [ext_resource type="PackedScene" uid="uid://bld766j2kadoe" path="res://scenes/pickaxetext.tscn" id="7_fjrip"]
 [ext_resource type="AudioStream" uid="uid://csbwgnp7vmfcu" path="res://sound_effects/player/heart.mp3" id="8_smehm"]
+[ext_resource type="PackedScene" uid="uid://ds5c1eoco67sc" path="res://scenes/legendswordpop.tscn" id="10_y4r1p"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tuyoq"]
 radius = 18.0
@@ -629,6 +630,11 @@ scale = Vector2(0.35, 0.35)
 [node name="toggle_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_smehm")
 volume_db = 6.19
+
+[node name="legendspopup" parent="." instance=ExtResource("10_y4r1p")]
+visible = false
+position = Vector2(5, -42)
+scale = Vector2(0.06, 0.06)
 
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]

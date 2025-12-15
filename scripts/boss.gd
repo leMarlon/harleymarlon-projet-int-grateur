@@ -4,7 +4,7 @@ signal boss_defeated
 
 var current_dir = "none"
 
-var speed = 100
+var speed = 90
 var player_chase = false
 var player = null
 
@@ -127,7 +127,10 @@ func die():
 
 	update_health()
 	$AnimatedSprite2D.play("death")
+	
 
 	await get_tree().create_timer(5.67).timeout
 	emit_signal("boss_defeated")
+	
+	get_tree().change_scene_to_file("res://scenes/game_over.tscn")
 	queue_free()

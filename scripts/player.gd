@@ -2,6 +2,9 @@ extends CharacterBody2D
 
 class_name Player
 
+signal legendswordobtained
+
+
 const speed = 140
 var current_dir = "none"
 @onready var deathsound = $death
@@ -14,8 +17,11 @@ var oldman_in_range = false
 var learntoplay_inrange = false
 var rockinrange = false
 
+var legendchest_inrange = false
+
 var ismoving = false
 var enemy_inattack_range = false
+var boss_inattack_range = false
 var enemy_attack_cooldown = true
 var health = 100
 var player_alive = true
@@ -34,6 +40,9 @@ func _ready():
 	elif global.current_scene == "cliff_side":
 		$cliffside_camera2D.make_current()
 		$cliffside_camera2D.zoom = Vector2(3,3)
+	elif global.current_scene == "boss_map":
+		$cliffside_camera2D.make_current()
+		$cliffside_camera2D.zoom = Vector2(3,3)
 	
 	_set_camera_limits()
 	
@@ -43,7 +52,7 @@ func _physics_process(delta):
 	
 			
 	if dialogue_open:
-		play_anim(0)              # keep facing-based idle
+		play_anim(0)
 		velocity = Vector2.ZERO
 		move_and_slide()
 	else:
@@ -71,7 +80,13 @@ func _physics_process(delta):
 					)				
 				dialogue_open = true
 				b3.tree_exited.connect(_on_dialogue_closed)
-	
+			if legendchest_inrange == true: 
+				var b = DialogueManager.show_example_dialogue_balloon(load("res://dialogues/legend_sword.dialogue"), "start")
+				dialogue_open = true
+				b.tree_exited.connect(_on_dialogue_closed)
+				$legendspopup.visible = true
+				$pickaxe_timer.start()
+				emit_signal("legendswordobtained")
 		
 	if health <= 0 and player_alive:
 		die()
@@ -168,7 +183,7 @@ func _on_legend_hitbox_body_entered(body: Node2D) -> void:
 		if body.has_method("enemy"):
 			enemy_inattack_range = true
 		if body.has_method("boss"):
-			enemy_inattack_range = true
+			boss_inattack_range = true
 		
 
 
@@ -177,7 +192,7 @@ func _on_legend_hitbox_body_exited(body: Node2D) -> void:
 		if body.has_method("enemy"):
 			enemy_inattack_range = false
 		if body.has_method("boss"):
-			enemy_inattack_range = false
+			boss_inattack_range = false
 
 
 
@@ -189,7 +204,7 @@ func _on_player_hitbox_body_entered(body: Node2D) -> void:
 	if body.has_method("enemy"):
 		enemy_inattack_range = true
 	if body.has_method("boss"):
-		enemy_inattack_range = true
+		boss_inattack_range = true
 	
 		
 
@@ -197,7 +212,7 @@ func _on_player_hitbox_body_exited(body: Node2D) -> void:
 	if body.has_method("enemy"):
 		enemy_inattack_range = false
 	if body.has_method("boss"):
-		enemy_inattack_range = false
+		boss_inattack_range = false
 		
 func enemy_attack():
 	if not player_alive:
@@ -205,6 +220,13 @@ func enemy_attack():
 
 	if enemy_inattack_range and enemy_attack_cooldown == true:
 		health = health - 10
+		enemy_attack_cooldown = false
+		hurtsound.play()
+		$attack_cooldown.start()
+		print("The player has been hit, Player health : ", health)
+	elif boss_inattack_range and enemy_attack_cooldown == true:
+		
+		health = health - 20
 		enemy_attack_cooldown = false
 		hurtsound.play()
 		$attack_cooldown.start()
@@ -249,8 +271,8 @@ func attack():
 				$AnimatedSprite2D.flip_h = false
 				$AnimatedSprite2D.play("side_slash_lgd")
 				slashsound.play()
-			else:
 				$deal_attack_timer.start()
+			else:
 				$AnimatedSprite2D.flip_h = false
 				$AnimatedSprite2D.play("side_slash")
 				slashsound.play()
@@ -308,6 +330,11 @@ func _set_camera_limits():
 		$cliffside_camera2D.limit_top = int(used_rect.position.y * cell_size.y)
 		$cliffside_camera2D.limit_right = int((used_rect.position.x + used_rect.size.x) * cell_size.x)
 		$cliffside_camera2D.limit_bottom = int((used_rect.position.y + used_rect.size.y) * cell_size.y)
+		
+		$bossmap_camera.limit_left = int(used_rect.position.x * cell_size.x)
+		$bossmap_camera.limit_top = int(used_rect.position.y * cell_size.y)
+		$bossmap_camera.limit_right = int((used_rect.position.x + used_rect.size.x) * cell_size.x)
+		$bossmap_camera.limit_bottom = int((used_rect.position.y + used_rect.size.y) * cell_size.y)
 	
 
 
@@ -430,7 +457,15 @@ func boulder_break():
 
 func _on_pickaxe_timer_timeout():
 	$pickaxe_text.visible = false
-
+	$legendspopup.visible = false
 
 
 		
+
+
+func _on_chest_zone_body_entered(body: Node2D) -> void:
+	legendchest_inrange = true
+
+
+func _on_chest_zone_body_exited(body: Node2D) -> void:
+	legendchest_inrange = false
